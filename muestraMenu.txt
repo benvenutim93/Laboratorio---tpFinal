@@ -1,0 +1,34 @@
+ ///MENU PRINCIPAL
+1- logueo admin (usuario y contraseña)
+2- logueo entrenador (usuario y contraseña)
+0- salir
+
+ ///ADMIN
+
+1 - JUGADOR
+1.1 alta jugador
+1.2 baja jugador
+1.3 buscar jugador 
+	1.3.1.por nombre
+	1.3.2.por dni
+1.4 lista por deporte 
+	1.4.1. entera
+	1.4.2. por posicion
+1.5 mostrar arreglo de listas
+1.6 modificar jugador
+	1.6.1. por dni
+	1.6.2. por nombre
+2- ENTRENADOR
+2.1 alta entrenador
+2.2 baja entrenador
+2.3 modificacion entrenador
+2.4 mostrar lista de entrenadores
+
+ ///ENTRENADOR
+2.1 asistencias jugador 
+	2.1.1. por nombre
+2.2 imprimir planilla
+	2.2.1 mostrar listado jugadores del deporte del entrenador
+	2.2.2 mostrar listado jugadores federados/fichados
+2.3 ver estado cuota de sus jugadores
+
