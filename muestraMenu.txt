@@ -5,9 +5,22 @@
 
  ///ADMIN
 
-1 - JUGADOR
+1 - JUGADOR /// MARI
+1.0 nuevo jugador
+	crear jugador
+	guardarlo en el archivo
+	crear nodo
+	agregarlo a la lista
 1.1 alta jugador
+	mostrar jugadores eliminados
+	dar de alta jugador eliminado
+	"el jugador fulano se ha dado de alta"
+	mostrar jugador
 1.2 baja jugador
+	mostrar jugadores
+	dar de baja jugador por nombre
+	"el jugador fulano se ha dado de baja"
+	mostrar jugador
 1.3 buscar jugador 
 	1.3.1.por nombre
 	1.3.2.por dni
@@ -18,17 +31,16 @@
 1.6 modificar jugador
 	1.6.1. por dni
 	1.6.2. por nombre
-2- ENTRENADOR
+2- ENTRENADOR		///RODRI
 2.1 alta entrenador
 2.2 baja entrenador
 2.3 modificacion entrenador
 2.4 mostrar lista de entrenadores
 
  ///ENTRENADOR
-2.1 asistencias jugador 
-	2.1.1. por nombre
-2.2 imprimir planilla
-	2.2.1 mostrar listado jugadores del deporte del entrenador
-	2.2.2 mostrar listado jugadores federados/fichados
-2.3 ver estado cuota de sus jugadores
+
+2.1 imprimir planilla
+	2.1.1 mostrar listado jugadores del deporte del entrenador
+	2.1.2 mostrar listado jugadores federados/fichados
+2.2 ver estado cuota de sus jugadores
 
