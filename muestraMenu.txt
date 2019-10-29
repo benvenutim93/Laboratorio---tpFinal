@@ -36,11 +36,23 @@
 2.2 baja entrenador
 2.3 modificacion entrenador
 2.4 mostrar lista de entrenadores
+2.5 calculo de sueldo
+3- Estadisticas
+	3.1 cantidad de jugadores
+		3.1.1 total
+		3.1.2 por deporte
+	3.2 cantidad de entrenadores
+		3.2.1 total
+		3.2.1 por deporte
+	3.3 cantidad de deportes
+	3.4 calculo de sueldos de entrenador
+	
 
  ///ENTRENADOR
 
 2.1 imprimir planilla
 	2.1.1 mostrar listado jugadores del deporte del entrenador
 	2.1.2 mostrar listado jugadores federados/fichados
+	2.1.3 mostrar listado de no federados
 2.2 ver estado cuota de sus jugadores
 
