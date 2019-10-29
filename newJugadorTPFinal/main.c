@@ -31,36 +31,36 @@ typedef struct
 
 nodo * jugInicLista ();
 nodo * jugAgregarPpio(nodo *, nodo * );
-int jugID(char []);
-jugador jugCrearJugador(char []);
-nodo * jugCrearNodoNuevo(char  []);
+int jugID(char []);  ///Obtiene el ID del jugador
+jugador jugCrearJugador(char []); ///Pide los datos de un jugador y los ingresa en una estructura jugador
+nodo * jugCrearNodoNuevo(char  []); ///Crea un nodo PIDIENDO los datos del jugador.
 void mostrarJugador(jugador );
-void jugMostrarArchivo(char []);
-void jugMesCuota (char []);
+void jugMostrarArchivo(char []); ///Muestra todos los jugadores del archivo.
+void jugMesCuota (char []); ///Utiliza la libreria time.h, devuelve el mes de la pc. (utilizado para el pago de cuotas)
 void mostrarArreglo (celda [], int );
-void mostrarLista (nodo * );
+void mostrarLista (nodo * ); ///Muestra una lista
 int validosCelda (celda[]);
 void inicCeldasNull (celda  []);
-void jugAlArchivo(char [], jugador );
-int alPrincipio (char [],celda []);
-int jugAltaDeporte (celda [], char [],int );
-int jugPosDeporte (celda [], char [], int );
-int jugAgregarDeporte (celda [], char [],int );
-nodo * crearNodoDesdeJugador (jugador );
+void jugAlArchivo(char [], jugador ); ///Escribe una estructura de jugador en el archivo
+int alPrincipio (char [],celda []); ///Ingresa al arreglo de celdas, todos los jugadores que existen en el archivo.
+int jugAltaDeporte (celda [], char [],int ); ///Agrega un nuevo jugador al principio de la lista
+int jugPosDeporte (celda [], char [], int );///Devuelve la posicion del arreglo de un deporte dado.
+int jugAgregarDeporte (celda [], char [],int ); ///agrega un deporte al arreglo de celdas
+nodo * crearNodoDesdeJugador (jugador ); ///Crea un nodo con los datos de un jugador ya cargados
 int agregarNodoAlArreglo (celda  [],nodo *, int );
-void mostrarJugEliminados(celda  [], int );
-void mostrarListaEliminados(nodo * );
-nodo * jugadorAlta (nodo * , jugador );
+void mostrarJugEliminados(celda  [], int ); ///Muestra TODOS los jugadores eliminados Logicamente
+void mostrarListaEliminados(nodo * ); ///Muestra los jugadores eliminados de una lista
+nodo * jugadorAlta (nodo *, jugador );  ///Da de alta un jugador que estaba eliminado
 jugador buscarJugadorNombreArreglo (celda [],int, char  []);
 jugador buscarJugadorNombreLista (nodo *, char  []);
-nodo * jugadorBaja (nodo * , jugador );
+nodo * jugadorBaja (nodo *, jugador );
 void mostrarJugadoresHabilitados (celda  [], int );
 void mostrarListaHabilitados (nodo * );
-void alFinal (char  [], celda [], int );
+void alFinal (char  [], celda [], int ); ///Carga al archivo todos los jugadores del arreglo.
 
-
-
-
+/// ---------------------------------------- E S T A D I S T I C A S --------------------------------------------
+int estCantJugadorPorDeporte (nodo * );
+int estCantJugadorTotal(celda  [], int );
 
 int main()
 {
@@ -77,10 +77,12 @@ int main()
     jugador c = jugCrearJugador(jugadores);
     jugAlArchivo(jugadores,c);
     jugMostrarArchivo(jugadores);
-*/
+    */
 
     validos = alPrincipio(jugadores,deportes);
     mostrarJugadoresHabilitados(deportes,validos);
+    pos=estCantJugadorTotal(deportes,validos);
+    printf ("TOTAL JUGADORES: %d", pos);
     /*mostrarArreglo(deportes,validos);
     system("pause");
     system("cls");
@@ -98,7 +100,7 @@ int main()
     alFinal(jugadores,deportes,validos);
     jugMostrarArchivo(jugadores);
 
-*/
+    */
     return 0;
 }
 
@@ -353,7 +355,7 @@ int jugAgregarDeporte (celda deportes[], char deporte[],int validos)
 int agregarNodoAlArreglo (celda deportes [],nodo * nn, int validos)
 {
     int i=0, flag=0;
-    while (i<validos)
+    while (i<validos && flag ==0)
     {
         if (strcmpi(nn->player.deporte,deportes[i].deporte)==0)
         {
@@ -397,7 +399,8 @@ void mostrarListaEliminados(nodo * lista)
     }
 }
 nodo * jugadorAlta (nodo * lista, jugador alta) ///antes se pregunta que jugador se quiere dar de baja, y se pasa por parametro la lista del deporte el jugador.
-{                                               ///devuelve la lista modificada
+{
+    ///devuelve la lista modificada
     nodo * seg = lista;
     if (lista != NULL)
     {
@@ -438,7 +441,8 @@ jugador buscarJugadorNombreLista (nodo * lista, char buscado [])
 }
 
 nodo * jugadorBaja (nodo * lista, jugador baja) ///antes se pregunta que jugador se quiere dar de baja, y se pasa por parametro la lista del deporte el jugador.
-{                                               ///devuelve la lista modificada
+{
+    ///devuelve la lista modificada
     nodo * seg = lista;
     if (lista != NULL)
     {
@@ -472,7 +476,7 @@ void alFinal (char archivo [], celda deportes[], int validos)
 {
     FILE * archi = fopen(archivo, "wb");
     jugador aux;
-    for (int i=0;i<validos;i++)
+    for (int i=0; i<validos; i++)
     {
         nodo * seg = deportes[i].lista;
         while (seg!=NULL)
@@ -483,4 +487,33 @@ void alFinal (char archivo [], celda deportes[], int validos)
         }
     }
     fclose(archi);
+}
+
+/// ---------------------------------------- E S T A D I S T I C A S --------------------------------------------
+
+int estCantJugadorTotal(celda deportes [], int validos)
+{
+    int suma=0;
+    for (int i=0; i<validos; i++)
+    {
+        suma+=estCantJugadorPorDeporte(deportes[i].lista);
+    }
+    return suma;
+}
+
+int estCantJugadorPorDeporte (nodo * lista)
+{
+    int suma;
+    if (lista == NULL)
+        suma=0;
+    else
+    {
+        if (lista->player.eliminado==0)
+            suma = 1 + estCantJugadorPorDeporte(lista->sig);
+        else
+            suma = 0 + estCantJugadorPorDeporte(lista->sig);
+
+    }
+
+    return suma;
 }
