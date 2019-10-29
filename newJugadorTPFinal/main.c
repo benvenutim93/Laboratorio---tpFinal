@@ -50,12 +50,14 @@ nodo * crearNodoDesdeJugador (jugador );
 int agregarNodoAlArreglo (celda  [],nodo *, int );
 void mostrarJugEliminados(celda  [], int );
 void mostrarListaEliminados(nodo * );
-void jugadorAlta (celda  [],int,char[] );
+nodo * jugadorAlta (nodo * , jugador );
 jugador buscarJugadorNombreArreglo (celda [],int, char  []);
 jugador buscarJugadorNombreLista (nodo *, char  []);
-void jugadorBaja (celda  [], int , char[]);
+nodo * jugadorBaja (nodo * , jugador );
 void mostrarJugadoresHabilitados (celda  [], int );
 void mostrarListaHabilitados (nodo * );
+void alFinal (char  [], celda [], int );
+
 
 
 
@@ -64,15 +66,39 @@ int main()
 {
     char jugadores[] = "jugadores.bin";
     celda deportes [dim];
-    int validos=0;
-    validos=alPrincipio(jugadores,deportes);
-    validos=jugAltaDeporte(deportes,jugadores,validos);
+    int validos=0, pos=0;
+    char nombre[30];
+    jugador a;
 
+    /*jugador a = jugCrearJugador(jugadores);
+    jugAlArchivo(jugadores,a);
+    jugador b = jugCrearJugador(jugadores);
+    jugAlArchivo(jugadores,b);
+    jugador c = jugCrearJugador(jugadores);
+    jugAlArchivo(jugadores,c);
+    jugMostrarArchivo(jugadores);
+*/
 
-    jugadorBaja(deportes,validos,jugadores);
+    validos = alPrincipio(jugadores,deportes);
+    mostrarJugadoresHabilitados(deportes,validos);
+    /*mostrarArreglo(deportes,validos);
+    system("pause");
+    system("cls");
+    mostrarJugadoresHabilitados(deportes,validos);
+    printf("Que jugador desea dar de baja? \n");
+    fflush(stdin);
+    gets(nombre);
+    a = buscarJugadorNombreArreglo(deportes,validos,nombre);
+    mostrarJugador(a);
+    pos = jugPosDeporte(deportes,a.deporte,validos);
+    printf ("pos: %d", pos);
+    deportes[pos].lista=jugadorBaja(deportes[pos].lista,a);
+    system ("pause");
+    mostrarLista(deportes[pos].lista);
+    alFinal(jugadores,deportes,validos);
     jugMostrarArchivo(jugadores);
 
-    //mostrarArreglo(deportes,validos);
+*/
     return 0;
 }
 
@@ -370,38 +396,19 @@ void mostrarListaEliminados(nodo * lista)
         seg=seg->sig;
     }
 }
-void jugadorAlta (celda deportes [],int validos, char archivo [])
-{
-    FILE * archi = fopen(archivo,"w+b");
-    char nombre [20];
-    int flag=0, i=0;
-    jugador a;
-    mostrarJugEliminados(deportes,validos);
-    printf ("Ingrese nombre de jugador a dar de alta\n");
-    fflush(stdin);
-    gets(nombre);
-    fseek (archi,0,0);
-    while (flag ==0 && fread(&a,sizeof(jugador),1,archi)>0)
+nodo * jugadorAlta (nodo * lista, jugador alta) ///antes se pregunta que jugador se quiere dar de baja, y se pasa por parametro la lista del deporte el jugador.
+{                                               ///devuelve la lista modificada
+    nodo * seg = lista;
+    if (lista != NULL)
     {
-        if (strcmpi (nombre,a.nombreYapellido) != 0)
-            i++;
-        else
-            flag=1;
+        while (seg != NULL && strcmpi(seg->player.nombreYapellido,alta.nombreYapellido)!=0)
+            seg=seg->sig;
+        if (seg != NULL)
+            seg->player.eliminado=0;
     }
-    if (flag ==1)
-    {
-        if (a.eliminado ==1)
-        {
-            a.eliminado=0;
-            fseek(archi,sizeof(jugador)*i,0);
-            fwrite (&a,sizeof(jugador),1,archi);
-            printf ("\nEl jugador %s se ha dado de alta \n",a.nombreYapellido);
-        }
-        else
-            printf("\nEl jugador ya está dado de alta\n");
-    }
-    fclose(archi);
+    return lista;
 }
+
 
 jugador buscarJugadorNombreArreglo (celda deportes[],int validos, char buscado [])
 {
@@ -430,37 +437,17 @@ jugador buscarJugadorNombreLista (nodo * lista, char buscado [])
     return a;
 }
 
-void jugadorBaja (celda deportes [], int validos, char archivo [])
-{
-    FILE * archi = fopen(archivo,"w+b");
-    char nombre [20];
-    int flag=0, i=0;
-    jugador a;
-    mostrarJugadoresHabilitados(deportes,validos);
-    printf ("Ingrese nombre de jugador a dar de baja\n");
-    fflush(stdin);
-    gets(nombre);
-    fseek (archi,0,0);
-    while (flag ==0 && fread(&a,sizeof(jugador),1,archi)>0)
+nodo * jugadorBaja (nodo * lista, jugador baja) ///antes se pregunta que jugador se quiere dar de baja, y se pasa por parametro la lista del deporte el jugador.
+{                                               ///devuelve la lista modificada
+    nodo * seg = lista;
+    if (lista != NULL)
     {
-        if (strcmpi (nombre,a.nombreYapellido) != 0)
-            i++;
-        else
-            flag=1;
+        while (seg != NULL && strcmpi(seg->player.nombreYapellido,baja.nombreYapellido)!=0)
+            seg=seg->sig;
+        if (seg != NULL)
+            seg->player.eliminado=1;
     }
-    if (flag ==1)
-    {
-        if (a.eliminado ==0)
-        {
-            a.eliminado=1;
-            fseek(archi,sizeof(jugador)*i,0);
-            fwrite (&a,sizeof(jugador),1,archi);
-            printf ("\nEl jugador %s se ha dado de baja \n",a.nombreYapellido);
-        }
-        else
-            printf("\nEl jugador ya está dado de baja\n");
-    }
-    fclose(archi);
+    return lista;
 }
 
 void mostrarJugadoresHabilitados (celda deportes [], int validos)
@@ -481,4 +468,19 @@ void mostrarListaHabilitados (nodo * lista)
         seg=seg->sig;
     }
 }
-
+void alFinal (char archivo [], celda deportes[], int validos)
+{
+    FILE * archi = fopen(archivo, "wb");
+    jugador aux;
+    for (int i=0;i<validos;i++)
+    {
+        nodo * seg = deportes[i].lista;
+        while (seg!=NULL)
+        {
+            aux=seg->player;
+            fwrite(&aux,sizeof(jugador),1,archi);
+            seg=seg->sig;
+        }
+    }
+    fclose(archi);
+}
