@@ -1,7 +1,17 @@
 # depslib dependency file v1.0
-1572375926 source:c:\users\mariana\desktop\marian\utn\programacion ii\tp final\newjugadortpfinal\main.c
+1572965521 source:c:\users\mariana\desktop\marian\utn\programacion ii\tp final\newjugadortpfinal\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
+	"jugador.h"
+
+1572965580 c:\users\mariana\desktop\marian\utn\programacion ii\tp final\newjugadortpfinal\jugador.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+
+1572965580 source:c:\users\mariana\desktop\marian\utn\programacion ii\tp final\newjugadortpfinal\jugador.c
+	"jugador.h"
 
