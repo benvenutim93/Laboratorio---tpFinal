@@ -54,16 +54,16 @@ int jugPosDeporte (celda [], char [], int );///Devuelve la posicion del arreglo 
 int jugAgregarDeporte (celda [], char [],int ); ///agrega un deporte al arreglo de celdas
 nodo * crearNodoDesdeJugador (jugador ); ///Crea un nodo con los datos de un jugador ya cargados
 int agregarNodoAlArreglo (celda  [],nodo *, int );
-void mostrarJugEliminados(celda  [], int ); ///Muestra TODOS los jugadores eliminados Logicamente
-void mostrarListaEliminados(nodo * ); ///Muestra los jugadores eliminados de una lista
+int mostrarJugEliminados(celda  [], int ); ///Muestra TODOS los jugadores eliminados Logicamente
+int mostrarListaEliminados(nodo * ); ///Muestra los jugadores eliminados de una lista
 nodo * jugadorAlta (nodo *, jugador );  ///Da de alta un jugador que estaba eliminado
 nodo * buscarJugadorNombreArreglo (celda [],int, char  []);
 nodo * buscarJugadorNombreLista (nodo *, char  []);
 nodo * buscarJugadorPorDniArreglo (celda [], int, char[]);
 nodo * buscarJugadorPorDniLista (nodo *, char[]);
 nodo * jugadorBaja (nodo *, jugador );
-void mostrarJugadoresHabilitados (celda  [], int );
-void mostrarListaHabilitados (nodo * );
+int mostrarJugadoresHabilitados (celda  [], int );
+int mostrarListaHabilitados (nodo * );
 nodo * modificarJugador (nodo *);
 nodo * buscarYmodificarJugador (celda[], int, char []);
 nodo * pagoCuota (nodo *);

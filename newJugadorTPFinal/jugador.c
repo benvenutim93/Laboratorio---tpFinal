@@ -285,23 +285,31 @@ nodo * crearNodoDesdeJugador (jugador a)
     return nn;
 }
 
-void mostrarJugEliminados(celda deportes [], int validos)
+int mostrarJugEliminados(celda deportes [], int validos)
 {
+    int cant=0;
     printf ("JUGADORES ELIMINADOS\n\n");
     for (int i=0; i<validos; i++)
     {
-        mostrarListaEliminados(deportes[i].lista);
+        cant=mostrarListaEliminados(deportes[i].lista);
     }
+    return cant;
 }
-void mostrarListaEliminados(nodo * lista)
+int mostrarListaEliminados(nodo * lista) ///retorna la cantidad de jugadores eliminados
 {
     nodo * seg = lista;
+    int cant=0;
     while (seg != NULL)
     {
         if (seg->player.eliminado == 1)
+        {
             mostrarJugador(seg->player);
+            cant++;
+        }
+
         seg=seg->sig;
     }
+    return cant;
 }
 nodo * jugadorAlta (nodo * lista, jugador alta) ///antes se pregunta que jugador se quiere dar de baja, y se pasa por parametro la lista del deporte el jugador.
 {
@@ -358,23 +366,30 @@ nodo * jugadorBaja (nodo * lista, jugador baja) ///antes se pregunta que jugador
     return lista;
 }
 
-void mostrarJugadoresHabilitados (celda deportes [], int validos)
+int mostrarJugadoresHabilitados (celda deportes [], int validos)
 {
+    int cant=0;
     printf ("JUGADORES HABILITADOS\n\n");
     for (int i=0; i<validos; i++)
     {
-        mostrarListaHabilitados(deportes[i].lista);
+        cant = mostrarListaHabilitados(deportes[i].lista);
     }
+    return cant;
 }
-void mostrarListaHabilitados (nodo * lista)
+int mostrarListaHabilitados (nodo * lista)
 {
+    int cant=0;
     nodo * seg = lista;
     while (seg != NULL)
     {
         if (seg->player.eliminado == 0)
+        {
             mostrarJugador(seg->player);
+            cant++;
+        }
         seg=seg->sig;
     }
+    return cant;
 }
 void alFinal (char archivo [], celda deportes[], int validos)
 {

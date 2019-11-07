@@ -31,9 +31,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="jugador.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="jugador.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menu.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
